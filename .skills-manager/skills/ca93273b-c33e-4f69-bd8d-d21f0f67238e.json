@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "ca93273b-c33e-4f69-bd8d-d21f0f67238e",
+  "path": "ian-xiaohei-scenes",
+  "path_key": "ian-xiaohei-scenes",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/helloianneo/ian-xiaohei-scenes",
+    "subpath": "ian-xiaohei-scenes",
+    "branch": null
+  }
+}

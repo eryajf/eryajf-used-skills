@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "4f5546a4-919a-40d1-9d50-97484492af8f",
+  "path": "ian-xiaohei-illustrations",
+  "path_key": "ian-xiaohei-illustrations",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "helloianneo/ian-xiaohei-illustrations/ian-xiaohei-illustrations",
+    "subpath": "ian-xiaohei-illustrations",
+    "branch": null
+  }
+}

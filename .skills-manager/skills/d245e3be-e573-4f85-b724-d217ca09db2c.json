@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "d245e3be-e573-4f85-b724-d217ca09db2c",
+  "path": "expert-design",
+  "path_key": "expert-design",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/expert-design",
+    "branch": null
+  }
+}

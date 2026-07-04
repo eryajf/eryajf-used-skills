@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "265646a1-781c-4e76-8da3-72a7e17e3476",
+  "path": "expert-ops",
+  "path_key": "expert-ops",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/expert-ops",
+    "branch": null
+  }
+}

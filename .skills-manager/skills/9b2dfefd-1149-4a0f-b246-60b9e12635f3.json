@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "9b2dfefd-1149-4a0f-b246-60b9e12635f3",
+  "path": "quality-review",
+  "path_key": "quality-review",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/quality-review",
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "954d96cb-5e43-4fc0-988d-8c5d55a0678f",
+  "path": "design-systems",
+  "path_key": "design-systems",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/design-systems",
+    "branch": null
+  }
+}

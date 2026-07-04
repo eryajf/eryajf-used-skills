@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "a04b1d36-1ac8-48bc-8cc7-cd83b7facc65",
+  "path": "product-playbook",
+  "path_key": "product-playbook",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/product-playbook",
+    "branch": null
+  }
+}

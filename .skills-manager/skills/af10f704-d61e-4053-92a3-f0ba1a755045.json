@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "af10f704-d61e-4053-92a3-f0ba1a755045",
+  "path": "expert-product",
+  "path_key": "expert-product",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/expert-product",
+    "branch": null
+  }
+}

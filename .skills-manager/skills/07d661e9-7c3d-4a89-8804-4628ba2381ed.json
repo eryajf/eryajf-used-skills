@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "07d661e9-7c3d-4a89-8804-4628ba2381ed",
+  "path": "github-issues",
+  "path_key": "github-issues",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "github/awesome-copilot/github-issues",
+    "subpath": "skills/github-issues",
+    "branch": null
+  }
+}
