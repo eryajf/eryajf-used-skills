@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "e86ab87c-ce2a-4aab-888a-5c60e442ca34",
+  "path": "newapi",
+  "path_key": "newapi",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "quantumnous/skills/newapi",
+    "subpath": "skills/newapi",
+    "branch": null
+  }
+}

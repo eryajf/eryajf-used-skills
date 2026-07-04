@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "374e7278-8ff6-490c-bdbb-1b25c65c7926",
+  "path": "prototype-templates",
+  "path_key": "prototype-templates",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/prototype-templates",
+    "branch": null
+  }
+}

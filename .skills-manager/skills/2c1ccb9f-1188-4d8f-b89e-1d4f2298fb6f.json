@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "2c1ccb9f-1188-4d8f-b89e-1d4f2298fb6f",
+  "path": "article-metaphor-illustrator",
+  "path_key": "article-metaphor-illustrator",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/gainubi/article-metaphor-illustrator",
+    "subpath": null,
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "981838cd-10e0-49c8-b0d4-3fe9bc129646",
+  "path": "aiui-dev",
+  "path_key": "aiui-dev",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/jsar-project/AIUI/tree/main/skills/aiui-dev",
+    "subpath": "skills/aiui-dev",
+    "branch": "main"
+  }
+}

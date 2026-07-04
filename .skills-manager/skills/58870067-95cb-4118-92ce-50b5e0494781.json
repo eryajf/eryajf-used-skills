@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "58870067-95cb-4118-92ce-50b5e0494781",
+  "path": "expert-team",
+  "path_key": "expert-team",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/expert-team",
+    "branch": null
+  }
+}

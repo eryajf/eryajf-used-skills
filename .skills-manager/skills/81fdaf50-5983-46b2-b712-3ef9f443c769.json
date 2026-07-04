@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "81fdaf50-5983-46b2-b712-3ef9f443c769",
+  "path": "alibabacloud-find-skills",
+  "path_key": "alibabacloud-find-skills",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "aliyun/alibabacloud-aiops-skills/alibabacloud-find-skills",
+    "subpath": "skills/developertools/solutions/alibabacloud-find-skills",
+    "branch": null
+  }
+}

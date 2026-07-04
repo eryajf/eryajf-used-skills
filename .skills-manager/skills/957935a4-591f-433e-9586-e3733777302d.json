@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "957935a4-591f-433e-9586-e3733777302d",
+  "path": "expert-security",
+  "path_key": "expert-security",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/ReJeCtAll/ExpertTeam-Codex",
+    "subpath": ".codex/skills/expert-security",
+    "branch": null
+  }
+}
