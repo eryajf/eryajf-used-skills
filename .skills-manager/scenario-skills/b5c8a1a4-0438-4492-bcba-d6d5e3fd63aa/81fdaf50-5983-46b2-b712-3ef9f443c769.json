@@ -7,8 +7,11 @@
     "autoclaw": true,
     "claude_code": true,
     "codex": true,
+    "command_code": true,
     "github_copilot": true,
     "hermes": true,
+    "omp_agent": true,
+    "pi": true,
     "qoder": true,
     "workbuddy": true
   }

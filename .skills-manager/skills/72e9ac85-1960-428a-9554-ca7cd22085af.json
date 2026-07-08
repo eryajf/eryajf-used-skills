@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "72e9ac85-1960-428a-9554-ca7cd22085af",
+  "path": "my-pull-requests",
+  "path_key": "my-pull-requests",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "github/awesome-copilot/my-pull-requests",
+    "subpath": "skills",
+    "branch": null
+  }
+}

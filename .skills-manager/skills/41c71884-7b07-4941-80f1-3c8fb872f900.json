@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "41c71884-7b07-4941-80f1-3c8fb872f900",
+  "path": "code-review-skill",
+  "path_key": "code-review-skill",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/awesome-skills/code-review-skill",
+    "subpath": null,
+    "branch": null
+  }
+}

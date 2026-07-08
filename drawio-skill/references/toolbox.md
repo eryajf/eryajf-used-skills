@@ -1,6 +1,6 @@
 # Toolbox — every bundled script, by use-case
 
-A map of the 25 bundled scripts grouped by what you're trying to do. The
+A map of the 28 bundled scripts grouped by what you're trying to do. The
 per-task routing table in `SKILL.md` says *when* to reach for each; this says
 *how they fit together*. Read it when you're not sure which script a request
 maps to, or you want to chain several.
@@ -23,10 +23,13 @@ exports it:
 | Terraform/K8s/compose files | the **declared** architecture | `tfimports` · `k8simports` · `composeimports` |
 | a running cluster/stack/cloud | what's **actually deployed** | `tfstate` · `dockerimports` · `k8simports -` |
 | a SQL schema | an ER diagram | `sqlerd` |
+| an OpenAPI / Swagger spec | an API diagram (by method) | `openapiimports` |
+| a diagram + a metrics file | it coloured by the data | `heatmap` |
 | a sequence of interactions | a UML sequence diagram | `seqlayout` |
 | a system at 3 zoom levels | a C4 model with drill-down | `c4` |
 | two diagrams / two snapshots | what changed (drift) | `drawiodiff` |
 | a repo's git history | how its architecture grew | `timelapse` |
+| a `.drawio` | a shareable interactive viewer | `drawiohtml` (→ HTML: pan/zoom/search/tabs) |
 | a `.drawio` | a written description | `explain` (→ Markdown) |
 | a `.drawio` | a slide deck | `drawio2pptx` (→ PPTX) |
 | a `.drawio` | an animated data-flow | `svgflow` (→ SVG) |
@@ -53,6 +56,7 @@ All emit graph JSON → `autolayout.py`.
 - **`k8simports.py`** — K8s manifests → objects as official kind icons (edges: Ingress→Service→workload→ConfigMap/Secret/PVC).
 - **`composeimports.py`** — docker-compose → service boxes + volume cylinders.
 - **`sqlerd.py`** — SQL DDL (`CREATE TABLE`) → ERD with crow's-foot FK edges.
+- **`openapiimports.py`** — OpenAPI 3 / Swagger 2 spec → API diagram: one node per operation (coloured by HTTP method) + one per component schema, with edges to the schemas each operation uses and between nested schemas. `--group` by tag.
 
 ## 4. Live infrastructure → diagram (actually running)
 
@@ -66,11 +70,13 @@ The **actual** counterpart to §3 — see `references/live-infra.md`.
 
 - **`drawiodiff.py`** — diff two `.drawio` (or two live snapshots) → colour-coded graph (added=green, removed=red, changed=orange). Pairs with §4 for drift.
 - **`timelapse.py`** — re-run an extractor across git history → a self-contained HTML player of how the architecture grew.
+- **`heatmap.py`** — recolour any `.drawio` by a metrics file (CSV/JSON): each node shaded low→high on a gradient by its value (`--palette`, optional `--size`, auto legend). Turns a static architecture into a cost / latency / traffic / error-rate heat map.
 
 ## 6. Diagram → other formats (reverse / interop)
 
 The skill runs both directions — these turn a `.drawio` back into something else:
 
+- **`drawiohtml.py`** — → a self-contained **interactive HTML viewer**: every page inlined as SVG with tabs, drag-pan, wheel-zoom, node search, and working drill-down links (C4 `data:page/id` links switch tabs). Share one file; no draw.io, no server.
 - **`explain.py`** — → structured **Markdown** (components by tier, relations, per-page C4).
 - **`drawio2pptx.py`** — → a 16:9 **PowerPoint** deck, one page per slide (needs `python-pptx`).
 - **`svgflow.py`** — → an **animated SVG** (edges flow as marching ants); renders on GitHub.
