@@ -3,7 +3,7 @@ name: archify
 description: Create professional architecture, workflow, sequence, data-flow, and lifecycle/state diagrams as standalone HTML files with SVG graphics, a built-in dark/light theme toggle, and one-click export to PNG / JPEG / WebP / SVG. Accepts plain-language descriptions or pasted Mermaid code (flowchart, sequenceDiagram, stateDiagram) and lays the diagram out from scratch in archify style. Use when the user asks for system architecture diagrams, infrastructure diagrams, cloud architecture visualizations, security diagrams, network topology, technical workflows, approval flows, runbooks, CI/CD flows, process diagrams, API call sequences, request lifecycles, data pipelines, ETL/ELT maps, PII boundaries, data lineage, state machines, lifecycle diagrams, status transitions, or asks to convert/beautify a Mermaid diagram.
 license: MIT
 metadata:
-  version: "2.10"
+  version: "2.11"
   author: tt-a1i
   based_on: Cocoon-AI/architecture-diagram-generator (MIT, v1.0)
 ---
@@ -14,15 +14,11 @@ Create professional technical diagrams as self-contained HTML files with inline 
 
 Every diagram ships with a **dark/light theme toggle** (persists in `localStorage`, respects `prefers-color-scheme`), an **export menu** (copy PNG to clipboard; download PNG/JPEG/WebP rasterized natively at up to 4× resolution; download a **dual-theme SVG** that follows the embedding host's `prefers-color-scheme` — ideal for GitHub READMEs), and a **CSS-variable color system** that keeps both themes consistent.
 
-## Setup (one-time, renderer modes only)
+## Setup
 
-The five typed renderers validate JSON against schemas via `ajv`. From this skill's folder:
+No dependency installation is required. The distributed skill includes standalone validators compiled from all five JSON Schemas, so schema and layout validation work immediately after installation. The generated HTML and the renderer runtime are both dependency-free.
 
-```bash
-npm install
-```
-
-Without it the renderers still run — they print a warning and skip schema validation, keeping their own layout checks. The **generated HTML never has dependencies**; only the renderers do.
+Run `node bin/archify.mjs doctor` to verify an installation. Run `node bin/archify.mjs demo [output-directory]` to generate a ready-to-open example before creating the first custom diagram.
 
 If you have no shell access at all (e.g. the skill was added as project knowledge), fall back to architecture mode for every request: hand-place SVG into `assets/template.html` following the Design System below, and run the self-review checklist before delivering.
 

@@ -471,6 +471,9 @@ export default {
 - `Enter`: usually enters navigation mode or activates the current target unless intercepted
 - `GlobalHook`: a device-specific Rokid Glasses key code for hardware-side touch or shortcut input
 
+> Note:
+> Use `GlobalHook` only when you need the fastest possible key response, such as game-style interactions. Its tradeoff is that it is invoked before other key handlers. If you need more consistent key behavior and can tolerate a little latency, it is not recommended.
+
 ```js
 export default {
   data: {
@@ -831,8 +834,8 @@ When developing AIUI applications, especially for wearable devices, it is crucia
 
 ### 6.1 Dimensions and Layout
 
-- **Width**: The application width is strictly **480px**.
-- **Height**: The recommended application height is between **120px and 380px**. Avoid creating overly tall pages that require excessive scrolling.
+- **Width**: The application width is strictly **448px**.
+- **Height**: The recommended application height is between **120px and 352px**. The full screen reference size is **448 x 352**. Avoid creating overly tall pages that require excessive scrolling.
 - **Card Style**: It is highly recommended to use a **Card Style** layout for each page. This provides a clear boundary and better visual focus in the spatial environment.
 - **Default Background**: Use **black** as the default background color.
 - **Default Border**: Use a **2px** border as the default border width for cards and key interactive elements.
