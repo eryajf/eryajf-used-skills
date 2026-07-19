@@ -1,6 +1,6 @@
 ---
 name: cnb-code-commit
-description: 编写代码、提交推送并创建 PR，适用于功能开发、Bug 修复、重构优化等场景。
+description: 编写代码、提交并创建 PR。
 ---
 
 # 自动编码并提交推送

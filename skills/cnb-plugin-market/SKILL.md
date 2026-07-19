@@ -1,6 +1,6 @@
 ---
 name: cnb-plugin-market
-description: 搜索 CNB 插件市场并生成流水线配置，覆盖通知、构建、部署、代码检查、发布、安全扫描等 CI/CD 场景。
+description: 搜索 CNB 插件市场并生成流水线配置。
 supports: cnb
 ---
 

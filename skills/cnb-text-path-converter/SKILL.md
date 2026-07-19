@@ -1,6 +1,6 @@
 ---
 name: cnb-text-path-converter
-description: 将 ISSUE/PR 中的相对路径转为绝对路径，避免歧义，支持纯文本与 Markdown。
+description: 将 ISSUE/PR 中的相对路径转为绝对路径。
 requires:
   bins: [node]
   files: [scripts/convertLink.js]

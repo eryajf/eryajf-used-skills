@@ -1,6 +1,6 @@
 ---
 name: cnb-code-review
-description: PR 代码评审，检查安全漏洞、Bug 和代码质量，输出结构化结果并通过 API 发送行级评论。
+description: PR 代码评审，检查安全漏洞、Bug 和代码质量。
 ---
 
 # PR 代码评审
