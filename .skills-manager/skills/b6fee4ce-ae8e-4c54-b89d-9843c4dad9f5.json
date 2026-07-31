@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "b6fee4ce-ae8e-4c54-b89d-9843c4dad9f5",
+  "path": "create-github-pull-request-from-specification",
+  "path_key": "create-github-pull-request-from-specification",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "github/awesome-copilot/create-github-pull-request-from-specification",
+    "subpath": "skills",
+    "branch": null
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "8083b362-2da7-478b-b34d-9ba04e9ff939",
+  "path": "jk",
+  "path_key": "jk",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "avivsinai/jenkins-cli/jk",
+    "subpath": "skills/jk",
+    "branch": null
+  }
+}

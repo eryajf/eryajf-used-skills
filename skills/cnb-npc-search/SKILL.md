@@ -1,6 +1,6 @@
 ---
 name: cnb-npc-search
-description: 通过关键词语义搜索 CNB 平台上的公开 NPC 角色，帮助用户找到最适合当前需求的 NPC。
+description: 搜索 NPC 角色。
 ---
 
 # 搜索 NPC 角色

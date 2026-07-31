@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "8f17f604-faa9-4b6e-b24a-ce34375a8da5",
+  "path": "kubernetes-skill",
+  "path_key": "kubernetes-skill",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/LukasNiessen/kubernetes-skill",
+    "subpath": null,
+    "branch": null
+  }
+}

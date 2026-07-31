@@ -1,6 +1,6 @@
 ---
 name: cnb-upload-attachment
-description: 上传附件（图片、文档、压缩包等）到 Issue 或 PR 评论，返回 Markdown 附件链接。
+description: 上传附件到 Issue 或 PR 评论。
 ---
 
 # 上传附件到 Issue / PR

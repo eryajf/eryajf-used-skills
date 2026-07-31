@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "ed206ef0-101f-447a-ada7-94724152adae",
+  "path": "dashboarding",
+  "path_key": "dashboarding",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "grafana/skills/dashboarding",
+    "subpath": "skills/grafana-core/dashboarding",
+    "branch": null
+  }
+}

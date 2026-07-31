@@ -341,8 +341,6 @@ AIUI supports basic list rendering with `ink:for`, allowing you to repeat a comp
 
 Use `item` to access the current element and `index` to access its position in the array. Prefer providing a stable `ink:key` when rendering dynamic collections.
 
-> **Current Limitation:** Nested `ink:for` is not supported yet. Keep list rendering to a single level, and flatten data in JavaScript first when you need to present hierarchical content.
-
 ### 3.3 Built-in Components
 
 AIUI provides a set of built-in components that you can use within your WXML templates. These components are mapped to native implementations for optimal performance.
@@ -470,6 +468,9 @@ export default {
 - `ArrowDown`: usually scrolls the root view downward unless intercepted
 - `Enter`: usually enters navigation mode or activates the current target unless intercepted
 - `GlobalHook`: a device-specific Rokid Glasses key code for hardware-side touch or shortcut input
+
+> Note:
+> Use `GlobalHook` only when you need the fastest possible key response, such as game-style interactions. Its tradeoff is that it is invoked before other key handlers. If you need more consistent key behavior and can tolerate a little latency, it is not recommended.
 
 ```js
 export default {
@@ -825,12 +826,14 @@ When generating AIUI code:
 
 ## 6. Design Guidelines
 
+> The full visual design language for **single-green monochrome display** devices (RokidGlasses1 / RokidGlasses2) — color tokens, typography, spacing, radii, border widths, component chrome, and Do's & Don'ts — lives in [`design-system-green.md`](./design-system-green.md). This system currently applies **only** to single-green monochrome hardware; a separate full-color variant does not exist yet. Treat the spec as the source of truth whenever you choose colors, spacing, or component styling on monochrome-green targets; the cheat-sheet below only summarizes the rules that come up most often during code generation.
+
 When developing AIUI applications, especially for wearable devices, it is crucial to follow these design guidelines to ensure a consistent and user-friendly experience.
 
 ### 6.1 Dimensions and Layout
 
-- **Width**: The application width is strictly **480px**.
-- **Height**: The recommended application height is between **120px and 380px**. Avoid creating overly tall pages that require excessive scrolling.
+- **Width**: The application width is strictly **448px**.
+- **Height**: The recommended application height is between **120px and 352px**. The full screen reference size is **448 x 352**. Avoid creating overly tall pages that require excessive scrolling.
 - **Card Style**: It is highly recommended to use a **Card Style** layout for each page. This provides a clear boundary and better visual focus in the spatial environment.
 - **Default Background**: Use **black** as the default background color.
 - **Default Border**: Use a **2px** border as the default border width for cards and key interactive elements.

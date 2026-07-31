@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "d0455421-f8a1-4425-b7cf-41d19705a5c8",
+  "path": "github-actions",
+  "path_key": "github-actions",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "skillssh",
+    "ref": "callstackincubator/agent-skills/github-actions",
+    "subpath": "skills/github-actions",
+    "branch": null
+  }
+}

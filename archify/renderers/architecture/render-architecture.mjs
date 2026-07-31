@@ -2,10 +2,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { esc, renderDefinitions, textUnits } from '../shared/utils.mjs';
 import { animateAttr, loadDiagram, writeDiagram, svgRootAttrs } from '../shared/cli.mjs';
+import { componentBox, boundaryBox, connectionPath } from '../shared/layout-report.mjs';
+import { gridLayout, resolveComponentPos, validateGridPlacement } from './grid.mjs';
 import {
   asArray,
   isFinitePoint,
   rectsOverlap,
+  suggestLabelObstacleFix,
+  suggestComponentSeparation,
   anchor,
   defaultFromSide,
   defaultToSide,
@@ -20,11 +24,16 @@ import {
 } from '../shared/geometry.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const layoutJsonMode = process.argv.includes('--layout-json');
+const cliArgs = process.argv.filter((arg) => arg !== '--layout-json');
 const { diagram: arch, template, outPath } = loadDiagram({
   rendererDir: __dirname,
   diagramType: 'architecture',
   defaultExample: 'web-app.architecture.json',
+  argv: cliArgs,
 });
+
+const grid = gridLayout(arch);
 
 const layout = {
   defaultW: 120,
@@ -39,7 +48,7 @@ const layout = {
 
 // ---- Measure components from free coordinates --------------------------------
 function measureComponent(c) {
-  const [x, y] = Array.isArray(c.pos) ? c.pos : [NaN, NaN];
+  const [x, y] = resolveComponentPos(c, grid);
   const [w, h] = Array.isArray(c.size) ? c.size : [layout.defaultW, layout.defaultH];
   return { ...c, x, y, width: w, height: h, cx: x + w / 2, cy: y + h / 2 };
 }
@@ -108,13 +117,23 @@ function validateArchitecture() {
   if (arch.boundaries !== undefined && !Array.isArray(arch.boundaries)) problems.push('Architecture "boundaries" must be an array.');
   if (arch.cards !== undefined && !Array.isArray(arch.cards)) problems.push('Architecture "cards" must be an array.');
   if (components.size !== asArray(arch.components).length) problems.push('Component ids must be unique.');
-  if (problems.length) {
-    throw new Error(`Architecture layout validation failed:\n- ${problems.join('\n- ')}`);
+  if (grid) {
+    validateGridPlacement(arch, grid, problems);
+  } else {
+    for (const c of asArray(arch.components)) {
+      if (!Array.isArray(c.pos) || c.pos.length !== 2) {
+        problems.push(`Component "${c.id}" must include pos [x, y] when layout.mode is omitted (free placement).`);
+      }
+    }
   }
 
   for (const c of components.values()) {
     if (!isFinitePoint(c.x, c.y, c.width, c.height)) {
       problems.push(`Component "${c.id}" has non-finite pos/size — pos and size must be [number, number].`);
+      continue;
+    }
+    if (c.width <= 0 || c.height <= 0) {
+      problems.push(`Component "${c.id}" has invalid size ${c.width}x${c.height} — width and height must be greater than 0.`);
       continue;
     }
     if (c.x < 0 || c.y < 0 || c.x + c.width > viewBox[0] || c.y + c.height > viewBox[1]) {
@@ -131,7 +150,7 @@ function validateArchitecture() {
   for (let i = 0; i < list.length; i += 1) {
     for (let j = i + 1; j < list.length; j += 1) {
       if (rectsOverlap(list[i], list[j], 8)) {
-        problems.push(`Components "${list[i].id}" and "${list[j].id}" are less than 8px apart — move one or shrink its size.`);
+        problems.push(`Components "${list[i].id}" and "${list[j].id}" are less than 8px apart — move one or shrink its size.\n${suggestComponentSeparation(list[i], list[j], 8)}`);
       }
     }
   }
@@ -165,12 +184,12 @@ function validateArchitecture() {
     if (!conn.label || !components.has(conn.from) || !components.has(conn.to)) continue;
     const [lx, ly] = labelPoint(conn, pathFor(conn).points);
     const w = Math.max(30, textUnits(conn.label) * 4.8 + 10);
-    labelRects.push({ label: conn.label, x: lx - w / 2, y: ly - 10, width: w, height: 14 });
+    labelRects.push({ label: conn.label, x: lx - w / 2, y: ly - 10, width: w, height: 14, lx, ly });
   }
   for (const rect of labelRects) {
     for (const c of components.values()) {
       if (rectsOverlap(rect, c, -2)) {
-        problems.push(`Label "${rect.label}" overlaps component "${c.id}" — adjust labelDx/labelDy/labelSegment or set labelAt.`);
+        problems.push(`Label "${rect.label}" overlaps component "${c.id}" — adjust labelDx/labelDy/labelSegment or set labelAt.\n${suggestLabelObstacleFix(rect, rect.lx, rect.ly, c)}`);
       }
     }
   }
@@ -178,6 +197,39 @@ function validateArchitecture() {
   if (problems.length) {
     throw new Error(`Architecture layout validation failed:\n- ${problems.join('\n- ')}`);
   }
+}
+
+function buildLayoutReport() {
+  const labels = [];
+  for (const conn of asArray(arch.connections)) {
+    if (!conn.label || !components.has(conn.from) || !components.has(conn.to)) continue;
+    const [lx, ly] = labelPoint(conn, pathFor(conn).points);
+    const w = Math.max(30, textUnits(conn.label) * 4.8 + 10);
+    labels.push({
+      text: conn.label,
+      x: Math.round(lx - w / 2),
+      y: Math.round(ly - 10),
+      width: Math.round(w),
+      height: 14,
+      labelAt: [Math.round(lx), Math.round(ly)],
+    });
+  }
+  return {
+    ok: true,
+    diagram_type: 'architecture',
+    layout: grid ? { mode: 'grid', ...grid } : { mode: 'free' },
+    viewBox,
+    components: [...components.values()].map(componentBox),
+    boundaries: boundaries.map(boundaryBox),
+    connections: asArray(arch.connections)
+      .filter((conn) => components.has(conn.from) && components.has(conn.to))
+      .map((conn) => {
+        const routed = pathFor(conn);
+        const labelAt = conn.label ? labelPoint(conn, routed.points) : null;
+        return connectionPath(conn, routed, labelAt);
+      }),
+    labels,
+  };
 }
 
 // ---- Connection routing ------------------------------------------------------
@@ -305,6 +357,10 @@ ${renderLegend()}
 }
 
 validateArchitecture();
+if (layoutJsonMode) {
+  console.log(JSON.stringify(buildLayoutReport(), null, 2));
+  process.exit(0);
+}
 writeDiagram({
   outPath,
   template,

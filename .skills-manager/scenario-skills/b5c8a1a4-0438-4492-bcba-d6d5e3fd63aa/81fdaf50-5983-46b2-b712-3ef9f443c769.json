@@ -7,8 +7,12 @@
     "autoclaw": true,
     "claude_code": true,
     "codex": true,
+    "command_code": true,
+    "droid": true,
     "github_copilot": true,
+    "grok": true,
     "hermes": true,
+    "omp_agent": true,
     "qoder": true,
     "workbuddy": true
   }

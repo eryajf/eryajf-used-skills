@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "9508b9be-e225-47cd-a882-29b24a41606b",
+  "path": "skills-2",
+  "path_key": "skills-2",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://cnb.cool/cnb/skills/cnb-skill",
+    "subpath": "skills",
+    "branch": null
+  }
+}
