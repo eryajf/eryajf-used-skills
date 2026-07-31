@@ -39,9 +39,4 @@ cnb pulls upload-file --file 本地文件路径
 
 ### 3. 使用上传结果
 
-命令返回 JSON，其中包含 `asset_link`（Issue）或 `path`（PR）字段，即附件的访问链接。
-
-附件在评论中的 Markdown 格式：
-
-- 图片：`![文件名](附件URL)` — 渲染为内联图片
-- 普通文件：`[文件名](附件URL)` — 渲染为下载链接
+命令返回 JSON，其中包含 `asset_link` 字段，即附件的 Markdown 链接，可直接嵌入评论使用。
