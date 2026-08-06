@@ -56,6 +56,14 @@ The schema lives at:
 archify/schemas/workflow.schema.json
 ```
 
+## Legend
+
+The default legend derives component kinds from `nodes[].type`. Supported
+`meta.legend.entries` keys, in stable order, are `frontend`, `backend`,
+`security`, `messagebus`, `database`, `cloud`, and `external`. Labels and
+visibility may be overridden through the shared legend contract; only kinds
+backed by rendered nodes receive Semantic Legend controls.
+
 ## Layout budget
 
 | Constant | Value |
@@ -99,5 +107,16 @@ layout problems, including node overlap, nodes outside their lanes, invalid
 phase/group column ranges, empty groups, broken `mainPath` steps, unknown edge
 targets, labels colliding with nodes or other labels, labels wider than their
 node, legends outside the viewBox, or straight arrows that are too short to
-read cleanly. Text width is estimated CJK-aware: fullwidth glyphs count as two
-units.
+read cleanly. The shared Clean Flow Gate also rejects edges crossing unrelated
+nodes with 2px clearance; lanes, phases, and groups remain intentional
+pass-through containers. Text width is estimated CJK-aware: fullwidth glyphs
+count as two units.
+
+Set `meta.quality_profile` to `showcase` for polished delivery. Unrelated proper
+X crossings then fail with `composition/proper-crossing`; default `standard`
+keeps them as artifact-receipt warnings. Collinear lane corridors are outside
+the proper-X rule, but a separate gate warns in `standard` and fails in
+`showcase` when unrelated edges overlap for at least 8px. Shared semantic
+endpoints, point touches, and shorter overlaps remain valid. Showcase also
+rejects any route segment below 8px and any interior turn segment below 16px;
+ordinary 8–15px endpoint stubs remain valid for fixed lane gaps.

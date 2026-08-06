@@ -45,6 +45,14 @@ The schema lives at:
 archify/schemas/sequence.schema.json
 ```
 
+## Legend
+
+The default visual legend derives kinds from `messages[].variant` (omitting
+`variant` means `default`). Supported `meta.legend.entries` keys, in stable
+order, are `emphasis`, `return`, `security`, `dashed`, and `default`. These are
+visual message keys, not Semantic Lens controls; label/visibility overrides do
+not create edge facts.
+
 ## Layout budget
 
 | Constant | Value |
@@ -80,5 +88,17 @@ layout problems, including missing participants, duplicate participant IDs,
 participant labels wider than their box, unknown message endpoints, messages
 outside the readable timeline, overly tight vertical spacing between messages
 that overlap horizontally, invalid segment or activation ranges, or
-participants that exceed the viewBox. Text width is estimated CJK-aware:
+participants that exceed the viewBox. The shared Clean Flow contract treats
+participant headers as semantic boxes while explicitly allowing messages to
+cross intermediate lifelines, activation bars, and segment frames. Text width is estimated CJK-aware:
 fullwidth glyphs count as two units.
+
+Set `meta.quality_profile` to `showcase` for polished delivery. Unrelated proper
+message X crossings then fail with `composition/proper-crossing`; default
+`standard` keeps them as artifact-receipt warnings. Messages may still cross
+intermediate lifelines. Collinear corridors remain outside the proper-X rule,
+but a separate gate warns in `standard` and fails in `showcase` when unrelated
+messages overlap for at least 8px. Shared semantic endpoints, point touches,
+and shorter overlaps remain valid. Showcase also rejects any route segment
+below 8px and any interior turn segment below 16px; ordinary 8–15px endpoint
+stubs remain valid.

@@ -35,6 +35,7 @@ npm install @cnbcool/cnb-cli -g
 
 - **cnb-pipeline** — 编写、修改、审查 `.cnb.yml`，诊断流水线失败原因并优化 CI 性能。
 - **cnb-plugin-market** — 搜索 CNB 插件市场，找到匹配需求的插件，读取文档并生成正确的流水线插件配置。
+- **cnb-self-hosted-runner** — 自定义构建机接入后的配置限制速查与问题排查（Mac/Windows/Linux ARM 平台限制、Docker 支持、流水线调度、离线排查等）。
 
 ## 协作与工具
 

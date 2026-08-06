@@ -46,6 +46,14 @@ The schema lives at:
 archify/schemas/lifecycle.schema.json
 ```
 
+## Legend
+
+The default legend derives kinds from `states[].type`. Supported
+`meta.legend.entries` keys, in stable order, are `start`, `active`, `waiting`,
+`decision`, `success`, `failure`, `neutral`, and `external`. Labels and
+visibility may be overridden through the shared legend contract; only kinds
+backed by rendered states receive Semantic Legend controls.
+
 ## Layout budget
 
 | Band | Lane id | Top y | Column centers | Default state |
@@ -56,11 +64,11 @@ archify/schemas/lifecycle.schema.json
 
 | Constant | Value |
 |----------|-------|
-| viewBox | default `[980, 660]`; schema minimum `[420, 360]` |
-| State area | x within `[32, width − 32]`; y within `[64, legend y − 24]` |
+| viewBox | default `[980, 660]`; schema minimum `[420, 566]` |
+| State area | x within `[32, width − 32]`; state bottom at or above `height − 122` |
 | State spacing | ≥10px between any two states — checked across lanes, because all event lanes share one band; separate same-band states with `col` or `yOffset` |
 | Transition length | ≥32px between endpoints |
-| Legend row | y = height − 98 |
+| Legend row | final baseline y = height − 36; extra measured rows wrap upward |
 
 The primary lifecycle rail runs along the phase band and extends to the
 furthest occupied phase column. Route presets for transitions: `straight`,
@@ -87,5 +95,17 @@ element's id or label. The renderer additionally fails when it can detect
 layout problems, including a missing `main` lane, duplicate state IDs, unknown
 lanes, unknown transition endpoints, states outside the lifecycle area,
 overlapping states (including across lanes), labels colliding with states or
-other labels, labels wider than their state, or unreadably short transitions.
+other labels, labels wider than their state, unreadably short transitions, or
+transitions crossing unrelated states (2px Clean Flow clearance). Lifecycle
+bands remain intentional pass-through containers.
 Text width is estimated CJK-aware: fullwidth glyphs count as two units.
+
+Set `meta.quality_profile` to `showcase` for polished delivery. Unrelated proper
+X crossings then fail with `composition/proper-crossing`; default `standard`
+keeps them as artifact-receipt warnings. The final artifact check samples
+rounded `Q` corners. Collinear corridors remain outside the proper-X rule, but
+a separate gate warns in `standard` and fails in `showcase` when unrelated
+transitions overlap for at least 8px. Shared semantic endpoints, point touches,
+and shorter overlaps remain valid. Showcase also rejects any route segment
+below 8px and any interior turn segment below 16px; ordinary 8–15px endpoint
+stubs remain valid.
