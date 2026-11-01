@@ -6,7 +6,9 @@ self-contained .html with pan (drag), zoom (wheel / buttons), page tabs,
 node search, and working links — external links open normally and internal
 page links ("data:page/id,…", e.g. a C4 model's drill-down) switch tabs
 inside the viewer. Share the file with anyone: no draw.io, no server,
-no external requests.
+no external requests. For selectable SVG text labels in the viewer, set
+`convertToSvg=1;` in cell styles before export; see
+`references/xml-authoring.md` → "SVG text labels".
 
   python3 drawiohtml.py architecture.drawio -o architecture.html
   python3 drawiohtml.py c4.drawio                # -> c4.html, drill-down works
@@ -54,7 +56,8 @@ def rewrite_page_links(tree):
 
 def export_svg(drawio_file, index, out_svg):
     """Export one page (1-based index) to SVG via the draw.io CLI."""
-    r = subprocess.run(["drawio", "-x", "-f", "svg", "--page-index", str(index),
+    r = subprocess.run(["drawio", "-x", "-f", "svg", "--embed-svg-images",
+                        "--page-index", str(index),
                         "-o", out_svg, drawio_file], capture_output=True)
     return r.returncode == 0 and os.path.exists(out_svg)
 

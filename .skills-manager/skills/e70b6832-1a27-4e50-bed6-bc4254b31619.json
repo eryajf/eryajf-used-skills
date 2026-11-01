@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "skill_id": "e70b6832-1a27-4e50-bed6-bc4254b31619",
+  "path": "skills-manager-clone-aaa14ff8-9eb6-4de4-99e6-a06de0b824cf",
+  "path_key": "skills-manager-clone-aaa14ff8-9eb6-4de4-99e6-a06de0b824cf",
+  "enabled": true,
+  "tags": [],
+  "source": {
+    "type": "git",
+    "ref": "https://github.com/Zacklinkk/svg-foundry-skill",
+    "subpath": null,
+    "branch": null
+  }
+}

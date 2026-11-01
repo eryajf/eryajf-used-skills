@@ -125,14 +125,14 @@ Each code importer keeps only **intra-project** edges (third-party/stdlib import
 
 ## Diffing two diagrams (`drawiodiff.py`)
 
-`drawiodiff.py old.drawio new.drawio -o diff.json` compares two `.drawio` files and emits a colour-coded graph JSON for autolayout — one diagram showing **what changed**: nodes/edges added (green), removed (red, dashed), changed (orange, a matched node whose label moved) or unchanged (grey).
+`drawiodiff.py old.drawio new.drawio -o diff.json` compares two `.drawio` files and emits a colour-coded graph JSON for autolayout — one diagram showing **what changed**: nodes/edges added (green), removed (red, dashed), changed (orange, a matched node whose label moved), moved (violet, a matched node with the same label at new coordinates) or unchanged (grey). Edges can be **rerouted** (orange): a re-point of an old edge (one endpoint kept, the other swapped for a newly added node) or a direction flip, shown once instead of as a separate added/removed pair.
 
 ```bash
 python3 <this-skill-dir>/scripts/drawiodiff.py old.drawio new.drawio -o diff.json
 python3 <this-skill-dir>/scripts/autolayout.py diff.json -o diff.drawio
 ```
 
-Nodes match by cell **id** by default — ideal for anything the importers or live-infra snapshots produce (their ids are stable semantic keys), so *snapshot → change → snapshot → diff* shows drift directly (e.g. two `tfstate.py` or `k8simports.py` snapshots). Pass `--by-label` to match on the visible label instead, for hand-drawn diagrams whose ids are random. Only leaf vertices and their edges are compared (containers/group cells and edge labels are skipped); the diff is a flat colour-coded view, so original icons are replaced by status colours (labels are kept). Multi-page files are flattened; compressed pages are skipped with a warning (this skill always writes uncompressed XML).
+Nodes match by cell **id** by default — ideal for anything the importers or live-infra snapshots produce (their ids are stable semantic keys), so *snapshot → change → snapshot → diff* shows drift directly (e.g. two `tfstate.py` or `k8simports.py` snapshots). Pass `--by-label` to match on the visible label instead, for hand-drawn diagrams whose ids are random. Movement is reported only when it is selective: if every matched node changed position, the two files come from different layout runs (the usual importer + autolayout case) and all matched nodes stay "same". Only leaf vertices and their edges are compared (containers/group cells and edge labels are skipped); the diff is a flat colour-coded view, so original icons are replaced by status colours (labels are kept). Multi-page files are flattened; compressed pages are skipped with a warning (this skill always writes uncompressed XML).
 
 ## Architecture time-lapse over git history (`timelapse.py`)
 
@@ -157,13 +157,17 @@ For any other language, produce the same graph JSON from any analyzer (e.g. `dep
 
 ## Edge routing after auto-layout
 
-Dot already routes edges orthogonally as part of its layout pass (`splines=ortho`), so the result usually needs no further routing. When the output still has edges cutting across shapes (common in dense graphs with many inter-group edges), pass the produced `.drawio` through `drawio --layout libavoid` for a second routing-only pass — it keeps every autolayout vertex position and only reroutes the connectors around the shapes:
+Dot already routes edges orthogonally as part of its layout pass (`splines=ortho`), so the result usually needs no further routing.
+
+**There is no CLI flag that reroutes edges without moving nodes.** `--layout` only accepts ELK *node* layout presets (`verticalFlow`, `horizontalFlow`, `verticalTree`, `horizontalTree`, `radialTree`, `organic`) or a JSON layout array — every one of them re-places vertices. Passing an unrecognised value (e.g. `libavoid`) makes draw.io open a modal `Unknown layout:` error dialog, which **hangs a headless run until it is killed**.
+
+When the output still has edges cutting across shapes, fix it at authoring time instead:
 
 ```bash
-drawio --layout libavoid diagram.drawio -o diagram.drawio
+python3 edgeports.py diagram.drawio          # spread stacked edges over each perimeter
 ```
 
-This is a pure CLI operation (no Graphviz needed), but requires draw.io CLI ≥ v30.
+`edgeports.py` handles the common case — several edges leaving the same side of a node all landing on the same point. It is a port assigner, not a router: for an edge crossing an unrelated shape mid-run, add `<Array as="points">` waypoints or increase node spacing (see `xml-authoring.md` "Edge style rules"). draw.io's obstacle-avoiding connector router is editor-side only: open the `.drawio` in draw.io desktop and re-route there.
 
 ## Limitations
 

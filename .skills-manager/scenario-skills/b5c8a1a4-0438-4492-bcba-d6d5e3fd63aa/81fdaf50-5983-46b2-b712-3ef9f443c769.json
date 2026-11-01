@@ -8,11 +8,14 @@
     "claude_code": true,
     "codex": true,
     "command_code": true,
+    "crush": true,
+    "deepseek_harness": true,
     "github_copilot": true,
     "hermes": true,
     "omp_agent": true,
     "pi": true,
     "qoder": true,
-    "workbuddy": true
+    "workbuddy": true,
+    "zcode": true
   }
 }
